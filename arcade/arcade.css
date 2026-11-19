@@ -1,0 +1,46 @@
+.icon[data-open="arcade"] .g{position:relative}
+.icon[data-open="arcade"] .g::after{
+  content:"↗";position:absolute;left:1px;bottom:0;width:12px;height:12px;
+  background:#fffdf2;color:#191529;border:1px solid #191529;
+  font:700 11px/10px monospace;text-shadow:none;
+}
+
+#arcade.max{max-height:100%!important}
+#arcade .arcade-body{padding:12px;background:#e6e1d4}
+.arcade-picker,.arcade-tools,.arcade-inputs,.arcade-round{display:flex;gap:5px}
+.arcade-picker .btn{flex:1;padding:8px 4px;font-size:20px}
+.arcade-picker .btn[aria-pressed="true"]{
+  background:var(--title-a);color:white;
+  box-shadow:inset 1px 1px #19143f,inset -1px -1px #776bb2,inset 2px 2px #423781;
+}
+#arcade .arcade-help{margin:9px auto;text-align:center;font-size:19px;line-height:1.1}
+.arcade-bezel{
+  position:relative;width:min(100%,352px);margin:0 auto;padding:6px;
+  background:#272638;border:1px solid #0c0c14;
+  box-shadow:inset 1px 1px #656476,inset -2px -2px #13121f;
+}
+.arcade-board{display:block;width:100%;height:auto;background:#101321;image-rendering:pixelated}
+.arcade-board:focus-visible{outline-color:#ffcf61;outline-offset:-3px}
+.arcade-overlay{position:absolute;inset:7px;display:grid;place-items:center;background:rgba(8,9,19,.62)}
+.arcade-overlay[hidden]{display:none}
+.arcade-play.btn{min-width:114px;background:#ffd36b;padding:11px 14px}
+.arcade-tools{justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:10px}
+.arcade-tools .btn{min-width:33px;min-height:35px;padding:5px 9px;font-size:18px;touch-action:manipulation}
+.arcade-tools .btn:disabled{color:#59564e;cursor:default}
+.arcade-status b{font-weight:400}
+
+@media (min-width:761px) and (max-height:555px){
+  #icons{gap:3px;max-height:calc(100% - 24px);overflow:auto}
+  #icons .icon{padding:4px 2px;font-size:18px}
+  #icons .icon .g{width:30px;height:30px;margin-bottom:3px}
+}
+@media (max-width:760px){
+  #arcade{max-height:100%!important}
+  #arcade .arcade-body{padding:9px}
+  .arcade-picker .btn{font-size:18px}
+  .arcade-tools .btn{min-width:40px;min-height:44px;padding-inline:7px}
+  .arcade-tools{justify-content:center}
+}
+@media (max-height:520px){
+  .arcade-bezel{width:min(100%,clamp(172px,calc(133dvh - 305px),352px))}
+}

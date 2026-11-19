@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./arcade/arcade.css">
 <style>
 :root{
   --desk:#0e6f6f;
@@ -277,6 +278,16 @@ body{overflow:auto}
     <path d="M2 4l6 5 6-5" fill="none" stroke="#000"/>
     <rect x="11" y="9" width="3" height="3" fill="#d6492f"/>
   </symbol>
+  <symbol id="s-arcade" viewBox="0 0 16 16">
+    <path d="M3.5 1.5h9v7l2 3v3h-13v-3l2-3z" fill="#4f7bd6" stroke="#10111f"/>
+    <path d="M4 2h8v2H4z" fill="#ffcf61"/>
+    <path d="M5 5h6v4H5z" fill="#111523"/>
+    <path d="M6 6h1v1H6zm2 1h2v1H8z" fill="#70f2bd"/>
+    <path d="M3 11h10v2H3z" fill="#dcd8cb"/>
+    <path d="M5 10h1v2H5z" fill="#252341"/>
+    <path d="M10 11h2v1h-2z" fill="#d64955"/>
+    <path d="M3 14h2v1H3zm8 0h2v1h-2z" fill="#2a1f6b"/>
+  </symbol>
   <symbol id="s-off" viewBox="0 0 16 16">
     <circle cx="8" cy="9" r="5" fill="#cbc6b9" stroke="#000"/>
     <rect x="7" y="1" width="2" height="7" fill="#d6492f" stroke="#000"/>
@@ -295,6 +306,7 @@ body{overflow:auto}
     <button class="icon" data-open="expertise"><div class="g"><svg class="i"><use href="#s-dir"/></svg></div>Expertise</button>
     <button class="icon" data-open="approach"><div class="g"><svg class="i"><use href="#s-log"/></svg></div>approach.log</button>
     <button class="icon" data-open="contact"><div class="g"><svg class="i"><use href="#s-mail"/></svg></div>Mail</button>
+    <button class="icon" data-open="arcade" aria-label="arcade.exe" hidden><div class="g"><svg class="i" aria-hidden="true"><use href="#s-arcade"/></svg></div>arcade.exe</button>
   </nav>
 
   <div id="brand"><b>KO/OS</b>IT Operations Edition<br>kaganozturk.com</div>
@@ -394,6 +406,35 @@ body{overflow:auto}
     <div class="status"><span>Have a project or opportunity?</span><span>Ready</span></div>
   </section>
 
+  <section class="win" id="arcade" data-state="closed" data-x="144" data-y="16" data-w="514" data-icon="s-arcade" aria-labelledby="t-arcade" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-arcade"/></svg><span class="t" id="t-arcade">arcade.exe</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body arcade-body">
+      <div class="arcade-picker" role="group" aria-label="Choose a game">
+        <button class="btn" data-game="orbit" aria-pressed="true">Orbit Courier</button>
+        <button class="btn" data-game="circuit" aria-pressed="false">Circuit Shift</button>
+        <button class="btn" data-game="signal" aria-pressed="false">Signal Sort</button>
+      </div>
+      <p class="arcade-help" id="arcade-help"></p>
+      <div class="arcade-bezel">
+        <canvas class="arcade-board" width="320" height="240" tabindex="0" aria-label="Game board" aria-describedby="arcade-help"></canvas>
+        <div class="arcade-overlay">
+          <button class="btn arcade-play">Play</button>
+        </div>
+      </div>
+      <div class="arcade-tools">
+        <div class="arcade-inputs" role="group" aria-label="Game controls"></div>
+        <div class="arcade-round" role="group" aria-label="Round controls">
+          <button class="btn arcade-pause" disabled>Pause</button>
+          <button class="btn arcade-reset">Restart</button>
+        </div>
+      </div>
+    </div>
+    <div class="status arcade-status">
+      <span class="arcade-state" role="status">Ready</span><span>Score <b class="arcade-score">0</b></span><span>Best <b class="arcade-best">0</b></span>
+    </div>
+  </section>
+
 </main>
 
 <!-- taskbar -->
@@ -411,6 +452,7 @@ body{overflow:auto}
     <li><button data-open="expertise"><svg class="g i"><use href="#s-dir"/></svg>Expertise</button></li>
     <li><button data-open="approach"><svg class="g i"><use href="#s-log"/></svg>approach.log</button></li>
     <li><button data-open="contact"><svg class="g i"><use href="#s-mail"/></svg>Mail</button></li>
+    <li hidden><button data-open="arcade"><svg class="g i" aria-hidden="true"><use href="#s-arcade"/></svg>Arcade</button></li>
     <li><hr></li>
     <li><button id="shutbtn"><svg class="g i"><use href="#s-off"/></svg>Shut down…</button></li>
   </ul>
@@ -464,6 +506,7 @@ your computer.
     if (!small.matches) place(w);
     setActive(w);
     closeStart();
+    if (id === 'arcade' && !w.contains(document.activeElement)) w.focus({preventScroll:true});
   }
   function minimize(w){
     w.dataset.state = 'min';
@@ -611,5 +654,6 @@ your computer.
   }
 })();
 </script>
+<script type="module" src="./arcade/arcade.js"></script>
 </body>
 </html>

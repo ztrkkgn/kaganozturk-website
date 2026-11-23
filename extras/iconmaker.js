@@ -107,7 +107,23 @@ export function initIconMaker(root, desktopIcon) {
     } catch {
       // The icon can still be placed for the current page.
     }
+    updateActions();
     status.textContent = 'Your icon is on the KO/OS desktop.';
+  });
+  const remove = button('Remove from desktop', 'btn', () => {
+    desktopIcon.hidden = true;
+    desktopIcon.querySelector('.g').replaceChildren();
+
+    let message = 'Your icon was removed from the KO/OS desktop.';
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      message = 'Your icon was removed for this session.';
+    }
+
+    updateActions();
+    (place.disabled ? canvas : place).focus({ preventScroll: true });
+    status.textContent = message;
   });
   const download = button('Download PNG', 'btn', () => {
     const link = element('a', '');
@@ -118,7 +134,7 @@ export function initIconMaker(root, desktopIcon) {
     link.remove();
     status.textContent = 'PNG export started.';
   });
-  actions.append(place, download, clear);
+  actions.append(place, remove, download, clear);
 
   root.classList.add('iconmaker');
   root.replaceChildren(
@@ -150,6 +166,7 @@ export function initIconMaker(root, desktopIcon) {
   function updateActions() {
     const empty = pixels.every(pixel => pixel === ERASE);
     clear.disabled = place.disabled = download.disabled = empty;
+    remove.disabled = desktopIcon.hidden;
   }
 
   function moveCursor(x, y) {
@@ -232,6 +249,6 @@ export function initIconMaker(root, desktopIcon) {
 
   pixels.forEach((color, index) => drawPixel(index % SIZE, Math.floor(index / SIZE), color));
   selectTool(tool);
-  updateActions();
   if (saved?.some(pixel => pixel !== ERASE)) showOnDesktop();
+  updateActions();
 }

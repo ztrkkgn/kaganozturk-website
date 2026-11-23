@@ -12,6 +12,7 @@ const overlay = arcade.querySelector('.arcade-overlay');
 const play = arcade.querySelector('.arcade-play');
 const pauseButton = arcade.querySelector('.arcade-pause');
 const reset = arcade.querySelector('.arcade-reset');
+const printScore = arcade.querySelector('[data-receipt="arcade"]');
 const stateLabel = arcade.querySelector('.arcade-state');
 const scoreLabel = arcade.querySelector('.arcade-score');
 const bestLabel = arcade.querySelector('.arcade-best');
@@ -50,6 +51,7 @@ function setPhase(next) {
   play.textContent = state.button;
   stateLabel.textContent = state.label;
   pauseButton.disabled = !playing;
+  printScore.disabled = next === 'ready';
   for (const button of controls.children) button.disabled = !playing;
 
   cancelAnimationFrame(frameId);

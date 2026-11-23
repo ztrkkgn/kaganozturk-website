@@ -1,0 +1,136 @@
+[data-dialup] [hidden] {
+  display: none;
+}
+
+.dialup-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 6px 9px;
+  background: #d7d2c3;
+  box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi);
+}
+
+.dialup-line p {
+  margin: 0;
+}
+
+.dialup-line-light {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: #6c6960;
+  box-shadow: 0 0 0 1px #14110b;
+}
+
+[data-dialup-state="calling"] .dialup-line-light {
+  background: var(--amber);
+}
+
+[data-dialup-state="online"] .dialup-line-light {
+  background: #1fa34a;
+}
+
+.dialup-connection h2,
+.dialup-board h2 {
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.dialup-terminal {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  color: #a2f2ad;
+  background: #111b17;
+}
+
+.dialup-terminal code {
+  display: block;
+  margin-bottom: 4px;
+  color: inherit;
+  font: inherit;
+}
+
+.dialup-terminal progress {
+  display: block;
+  width: min(100%, 270px);
+  height: 13px;
+  accent-color: #1fa34a;
+}
+
+.dialup-board {
+  padding: clamp(10px, 4vw, 16px);
+  color: #c9f4bf;
+  background: #111b17;
+  border: 1px solid #14110b;
+}
+
+.dialup-board-heading {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #55775b;
+}
+
+.dialup-board-heading h2 {
+  color: #a2f2ad;
+}
+
+.dialup-board-heading h2:focus {
+  outline: none;
+}
+
+.dialup-board-heading p {
+  color: #acd0a7;
+}
+
+.dialup-post + .dialup-post {
+  border-top: 1px solid #345342;
+}
+
+.dialup-post summary {
+  padding: 8px 3px;
+  cursor: pointer;
+}
+
+.dialup-post summary:focus-visible,
+.dialup-board .btn:focus-visible {
+  outline: 2px dotted #c9f4bf;
+  outline-offset: 2px;
+}
+
+.dialup-byline {
+  margin-left: .7em;
+  color: #97bca1;
+  font-size: .9em;
+  white-space: nowrap;
+}
+
+.dialup-post p {
+  margin-left: 18px;
+}
+
+.dialup-disk {
+  margin: 0 0 10px 18px;
+  padding: 0 8px 8px;
+  border: 1px dashed #55775b;
+}
+
+.dialup-disk summary {
+  color: #ffd36b;
+}
+
+.dialup-disk p {
+  margin-left: 0;
+}
+
+.dialup-disconnect {
+  margin-top: 10px;
+}
+
+@media (max-width: 420px) {
+  .dialup-byline {
+    display: block;
+    margin-left: 17px;
+  }
+}

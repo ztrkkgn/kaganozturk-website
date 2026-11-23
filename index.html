@@ -242,6 +242,10 @@ h1,h2,h3{font-family:var(--px);font-weight:400;margin:0}
 }
 </style>
 <link rel="stylesheet" href="./workbench/workbench.css?v=2">
+<link rel="stylesheet" href="./extras/programs.css?v=1">
+<link rel="stylesheet" href="./extras/desktop.css?v=1">
+<link rel="stylesheet" href="./extras/dialup.css?v=1">
+<link rel="stylesheet" href="./extras/iconmaker.css?v=1">
 <noscript><style>
 body{overflow:auto}
 #desk{height:auto;padding:12px 12px 52px;overflow:visible}
@@ -281,6 +285,33 @@ body{overflow:auto}
     <path d="M2 7h12v2H2z" fill="#4f7bd6"/>
     <path d="M7 7h2v4H7z" fill="#ffb000" stroke="#14110b"/>
   </symbol>
+  <symbol id="s-bin" viewBox="0 0 16 16">
+    <path d="M3.5 4.5h9l-1 10h-7z" fill="#e6e1d4" stroke="#151517"/>
+    <path d="M2.5 4.5h11v-2h-11z" fill="#fffdf2" stroke="#151517"/>
+    <path d="M6 1h4v1H6z" fill="#151517"/>
+    <path d="M6 7h3v1H8v1H7v2H6zm3 2h2v1h-1v1H8v1H7v-2h2z" fill="#0a7a52"/>
+  </symbol>
+  <symbol id="s-dialup" viewBox="0 0 16 16">
+    <path d="M2.5 7.5h11l1 3v3h-13v-3z" fill="#cbc6b9" stroke="#151517"/>
+    <path d="M4.5 7V4.5h6V2H14" fill="none" stroke="#14110b"/>
+    <path d="M3 10h10v2H3z" fill="#14110b"/>
+    <path d="M4 10h1v1H4zm2 0h1v1H6z" fill="#6ae0aa"/>
+    <path d="M10 10h2v1h-2z" fill="#ffb000"/>
+  </symbol>
+  <symbol id="s-iconmaker" viewBox="0 0 16 16">
+    <path d="M1.5 2.5h13v11h-13z" fill="#fffdf2" stroke="#151517"/>
+    <path d="M4 5h3v3H4z" fill="#d6492f"/>
+    <path d="M9 5h3v3H9z" fill="#4f7bd6"/>
+    <path d="M4 9h3v3H4z" fill="#1fa34a"/>
+    <path d="M9 9h3v3H9z" fill="#ffb000"/>
+  </symbol>
+  <symbol id="s-printer" viewBox="0 0 16 16">
+    <path d="M4.5 1.5h7v6h-7z" fill="#fffdf2" stroke="#151517"/>
+    <path d="M1.5 5.5h13v7h-13z" fill="#cbc6b9" stroke="#151517"/>
+    <path d="M4.5 9.5h7v5h-7z" fill="#fffdf2" stroke="#151517"/>
+    <path d="M6 11h4v1H6zm0 2h3v1H6z" fill="#7b776c"/>
+    <path d="M12 7h1v1h-1z" fill="#0a7a2f"/>
+  </symbol>
   <symbol id="s-mail" viewBox="0 0 16 16">
     <rect x="1.5" y="3.5" width="13" height="9" fill="#fffdf2" stroke="#000"/>
     <path d="M2 4l6 5 6-5" fill="none" stroke="#000"/>
@@ -317,6 +348,8 @@ body{overflow:auto}
     <button class="icon" data-open="fixit"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-fixit"/></svg></div>fixit.exe</button>
     <button class="icon" data-open="contact"><div class="g"><svg class="i"><use href="#s-mail"/></svg></div>Mail</button>
     <button class="icon" data-open="arcade" aria-label="arcade.exe" hidden><div class="g"><svg class="i" aria-hidden="true"><use href="#s-arcade"/></svg></div>arcade.exe</button>
+    <button class="icon" type="button" data-open="recycle"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-bin"/></svg></div>Recycle Bin</button>
+    <button class="icon" type="button" data-custom-icon data-open="iconmaker" hidden><div class="g" aria-hidden="true"></div>My icon</button>
   </nav>
 
   <div id="brand"><b>KO/OS</b>IT Operations Edition<br>kaganozturk.com</div>
@@ -512,6 +545,7 @@ body{overflow:auto}
         <div class="arcade-round" role="group" aria-label="Round controls">
           <button class="btn arcade-pause" disabled>Pause</button>
           <button class="btn arcade-reset">Restart</button>
+          <button class="btn" type="button" data-open="printer" data-receipt="arcade" disabled>Print score</button>
         </div>
       </div>
     </div>
@@ -520,12 +554,37 @@ body{overflow:auto}
     </div>
   </section>
 
+  <section class="win extra-win" id="recycle" data-state="closed" data-x="205" data-y="50" data-w="490" data-icon="s-bin" aria-labelledby="t-recycle" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-bin"/></svg><span class="t" id="t-recycle">Recycle Bin</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body"><div data-recycle></div></div>
+  </section>
+
+  <section class="win extra-win" id="dialup" data-state="closed" data-x="235" data-y="46" data-w="570" data-icon="s-dialup" aria-labelledby="t-dialup" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-dialup"/></svg><span class="t" id="t-dialup">dialup.exe</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body"><div data-dialup></div></div>
+  </section>
+
+  <section class="win extra-win" id="iconmaker" data-state="closed" data-x="255" data-y="40" data-w="540" data-icon="s-iconmaker" aria-labelledby="t-iconmaker" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-iconmaker"/></svg><span class="t" id="t-iconmaker">iconmaker.exe</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body"><div data-iconmaker></div></div>
+  </section>
+
+  <section class="win extra-win" id="printer" data-state="closed" data-x="260" data-y="58" data-w="490" data-icon="s-printer" aria-labelledby="t-printer" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-printer"/></svg><span class="t" id="t-printer">print.exe</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body"><div data-printer></div></div>
+  </section>
+
 </main>
 
 <!-- taskbar -->
 <div id="bar">
   <button id="startbtn" aria-haspopup="true" aria-expanded="false" aria-controls="start"><svg class="g i"><use href="#s-ko"/></svg>Start</button>
   <div id="tasks" role="toolbar" aria-label="Open windows"></div>
+  <div data-cat hidden></div>
   <div id="tray"><i title="Online"></i><span class="tm" id="clock">--:--</span></div>
 </div>
 
@@ -541,10 +600,17 @@ body{overflow:auto}
     <li><button data-open="contact"><svg class="g i"><use href="#s-mail"/></svg>Mail</button></li>
     <li hidden><button data-open="arcade"><svg class="g i" aria-hidden="true"><use href="#s-arcade"/></svg>Arcade</button></li>
     <li><hr></li>
+    <li><button type="button" data-open="recycle"><svg class="g i" aria-hidden="true"><use href="#s-bin"/></svg>Recycle Bin</button></li>
+    <li><button type="button" data-screensaver><svg class="g i" aria-hidden="true"><use href="#s-pc"/></svg>bosphorus.scr</button></li>
+    <li><button type="button" data-open="dialup"><svg class="g i" aria-hidden="true"><use href="#s-dialup"/></svg>dialup.exe</button></li>
+    <li><button type="button" data-open="iconmaker"><svg class="g i" aria-hidden="true"><use href="#s-iconmaker"/></svg>iconmaker.exe</button></li>
+    <li><button type="button" data-open="printer"><svg class="g i" aria-hidden="true"><use href="#s-printer"/></svg>print.exe</button></li>
+    <li><hr></li>
     <li><button id="shutbtn"><svg class="g i"><use href="#s-off"/></svg>Shut down…</button></li>
   </ul>
 </div>
 
+<div id="screensaver" hidden></div>
 <div class="screen off" id="off" hidden><div><pre>It is now safe to turn off
 your computer.
 
@@ -631,6 +697,10 @@ your computer.
       };
       tasks.appendChild(b);
     });
+    var selected = tasks.querySelector('.on');
+    if (selected && tasks.scrollWidth > tasks.clientWidth){
+      selected.scrollIntoView({block:'nearest', inline:'nearest'});
+    }
   }
 
   /* ---- wiring ---- */
@@ -711,13 +781,17 @@ your computer.
   wins.forEach(function(w){ w.dataset.state = 'closed'; });
   open('welcome');
 
-  /* ---- shareable Work and Fixit links ---- */
+  /* ---- shareable window links ---- */
   function openLinkedWindow(){
     switch (window.location.hash){
       case '#work': open('work'); break;
       case '#fixit': open('fixit'); break;
       case '#work-endpoints':
       case '#work-identity': open('work', window.location.hash.slice(1)); break;
+      case '#recycle':
+      case '#dialup':
+      case '#iconmaker':
+      case '#printer': open(window.location.hash.slice(1)); break;
     }
   }
   openLinkedWindow();
@@ -759,10 +833,21 @@ your computer.
   }
 })();
 </script>
-<script type="module" src="./arcade/arcade.js"></script>
+<script type="module" src="./arcade/arcade.js?v=2"></script>
 <script type="module">
-  import { initFixit } from './workbench/fixit.js';
+  import { initFixit } from './workbench/fixit.js?v=2';
   initFixit(document.querySelector('[data-fixit]'));
+</script>
+<script type="module">
+  import { initDesktopExtras } from './extras/desktop.js?v=1';
+  import { initDialup } from './extras/dialup.js?v=1';
+  import { initIconMaker } from './extras/iconmaker.js?v=1';
+  import { initPrinter } from './extras/printer.js?v=1';
+
+  initDesktopExtras();
+  initDialup(document.querySelector('[data-dialup]'));
+  initIconMaker(document.querySelector('[data-iconmaker]'), document.querySelector('[data-custom-icon]'));
+  initPrinter(document.querySelector('[data-printer]'));
 </script>
 </body>
 </html>

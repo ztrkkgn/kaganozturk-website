@@ -140,6 +140,7 @@ export function initFixit(root) {
   }
 
   function renderResolution() {
+    const resolutionTitle = 'Device trust policy restored';
     const resolution = element('div', 'fixit-resolution');
     resolution.append(
       element('p', '', 'The enrollment move left the new device group without the policy the app needed to recognize trusted devices.'),
@@ -148,14 +149,21 @@ export function initFixit(root) {
     );
 
     const actions = element('div', 'fixit-actions');
+    const printTicket = element('button', 'btn', 'Print ticket');
+    printTicket.type = 'button';
+    printTicket.dataset.open = 'printer';
+    printTicket.dataset.receipt = 'fixit';
+    printTicket.dataset.ticket = ticket.title;
+    printTicket.dataset.resolution = resolutionTitle;
+    printTicket.dataset.summary = `${recommendedCount} of ${ticket.steps.length} recommended checks selected`;
     actions.append(button('Replay ticket', 'btn def', () => {
       stepIndex = 0;
       recommendedCount = 0;
       renderStep(true);
-    }));
+    }), printTicket);
 
     stage.replaceChildren(element('p', 'fixit-progress', 'Ticket resolved'));
-    stageHeading('Device trust policy restored', true);
+    stageHeading(resolutionTitle, true);
     stage.append(resolution, actions);
   }
 

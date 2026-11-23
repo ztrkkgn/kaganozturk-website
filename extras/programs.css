@@ -1,0 +1,138 @@
+#icons {
+  max-height: calc(100% - 24px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+#icons .icon[hidden],
+[data-printer] [hidden] {
+  display: none;
+}
+
+#tasks {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+#tasks .tbtn {
+  min-width: 34px;
+}
+
+.extra-win:focus {
+  outline: none;
+}
+
+.extra-win.max {
+  max-height: 100% !important;
+}
+
+.extra-win h2 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.arcade-round {
+  flex-wrap: wrap;
+}
+
+.fixit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.printer-paper {
+  margin: 10px 0 14px;
+  padding: 16px 22px;
+  border: 1px solid #99917f;
+  background:
+    radial-gradient(circle, #a8a292 2px, transparent 2.5px) left top / 12px 15px repeat-y,
+    radial-gradient(circle, #a8a292 2px, transparent 2.5px) right top / 12px 15px repeat-y,
+    #fbf7e8;
+  color: #2f312e;
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.printer-paper h3 {
+  margin: 0 0 10px;
+  font: bold 1em "Courier New", monospace;
+  letter-spacing: .07em;
+}
+
+.printer-paper dl {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 5px 12px;
+  margin: 0;
+  padding: 9px 0;
+  border-block: 1px dashed #99917f;
+}
+
+.printer-paper dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.body .printer-paper p {
+  margin: 10px 0 0;
+}
+
+@media (min-width: 761px) {
+  #icons {
+    width: 116px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: min-content;
+  }
+}
+
+@media (max-width: 760px) {
+  .extra-win {
+    max-height: 100% !important;
+  }
+
+  #tasks .tbtn {
+    min-width: 25px;
+    justify-content: center;
+    padding-inline: 3px;
+  }
+}
+
+@media print {
+  body.ko-printing {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+
+  .ko-printing > :not(#desk),
+  .ko-printing #desk > :not(#printer),
+  .ko-printing #printer > :not(.body),
+  .ko-printing [data-printer] > :not(#receipt-paper) {
+    display: none !important;
+  }
+
+  .ko-printing #desk,
+  .ko-printing #printer,
+  .ko-printing #printer .body {
+    display: block;
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .ko-printing #receipt-paper {
+    max-width: 130mm;
+    margin: 0 auto;
+    background: #fff;
+  }
+}

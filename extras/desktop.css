@@ -1,0 +1,137 @@
+.recycle-file {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: var(--hi);
+  border: 1px solid var(--lo);
+}
+
+.recycle-file-icon {
+  flex: none;
+  padding: 2px 6px;
+  background: var(--term);
+  color: var(--amber);
+}
+
+.recycle-file h2 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.recycle-file p,
+.body .recycle-message:last-child {
+  margin: 0;
+}
+
+.body .recycle-message:not(:empty) {
+  margin-top: 10px;
+}
+
+[data-cat] {
+  flex: none;
+}
+
+[data-cat][hidden],
+#screensaver[hidden] {
+  display: none;
+}
+
+[data-cat] button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: #d8d3c6;
+  box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi);
+}
+
+[data-cat] button:hover {
+  background: #ebe4d5;
+}
+
+[data-cat] canvas {
+  display: block;
+  width: 42px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.bosphorus-saver {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 12px;
+  border: 0;
+  background: #10162b;
+  color: #f5e9cb;
+  overflow: auto;
+}
+
+.bosphorus-saver[open] {
+  display: grid;
+  place-items: center;
+}
+
+.bosphorus-saver::backdrop {
+  background: #10162b;
+}
+
+.bosphorus-frame {
+  width: min(100%, 900px);
+  border: 3px solid #60728c;
+  background: #202a40;
+  box-shadow: 5px 5px #080d1b, inset 1px 1px #98a5b6;
+}
+
+.bosphorus-titlebar,
+.bosphorus-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 10px;
+}
+
+.bosphorus-titlebar h2 {
+  font-size: clamp(9px, 1.5vw, 14px);
+  line-height: 1.5;
+}
+
+.bosphorus-titlebar .btn:focus-visible {
+  outline-color: #fff;
+}
+
+.bosphorus-footer {
+  color: #e0d3b4;
+  font-size: 19px;
+}
+
+.bosphorus-frame canvas {
+  display: block;
+  width: 100%;
+  max-height: calc(100dvh - 134px);
+  object-fit: contain;
+  background: #10162b;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 480px) {
+  [data-cat] button {
+    width: 38px;
+  }
+
+  [data-cat] canvas {
+    width: 36px;
+  }
+}

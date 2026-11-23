@@ -241,12 +241,15 @@ h1,h2,h3{font-family:var(--px);font-weight:400;margin:0}
   .pad .cur,.term .ps::after{animation:none}
 }
 </style>
+<link rel="stylesheet" href="./workbench/workbench.css">
 <noscript><style>
 body{overflow:auto}
 #desk{height:auto;padding:12px 12px 52px;overflow:visible}
 #icons,#brand,#bar{display:none}
 .win{position:static!important;width:auto!important;height:auto!important;margin:0 0 14px;max-width:none}
 .tb{display:none}
+#work[data-state="closed"]{display:block}
+[data-open="work"],[data-open="fixit"],.work-actions button{display:none}
 </style></noscript>
 </head>
 <body>
@@ -272,6 +275,11 @@ body{overflow:auto}
     <rect x="1.5" y="2.5" width="13" height="11" fill="#14110b" stroke="#000"/>
     <rect x="1" y="2" width="14" height="2" fill="#4f7bd6"/>
     <path d="M4 6h1v1h1v1H5v1H4V8h1V7H4z" fill="#ffb000"/><rect x="7" y="9" width="3" height="1" fill="#ffb000"/>
+  </symbol>
+  <symbol id="s-fixit" viewBox="0 0 16 16">
+    <path d="M1.5 5.5h13v8h-13zM5.5 5.5v-3h5v3" fill="#cbc6b9" stroke="#000"/>
+    <path d="M2 7h12v2H2z" fill="#4f7bd6"/>
+    <path d="M7 7h2v4H7z" fill="#ffb000" stroke="#14110b"/>
   </symbol>
   <symbol id="s-mail" viewBox="0 0 16 16">
     <rect x="1.5" y="3.5" width="13" height="9" fill="#fffdf2" stroke="#000"/>
@@ -304,7 +312,9 @@ body{overflow:auto}
     <button class="icon" data-open="welcome"><div class="g"><svg class="i"><use href="#s-pc"/></svg></div>kagan.exe</button>
     <button class="icon" data-open="about"><div class="g"><svg class="i"><use href="#s-doc"/></svg></div>about.txt</button>
     <button class="icon" data-open="expertise"><div class="g"><svg class="i"><use href="#s-dir"/></svg></div>Expertise</button>
+    <button class="icon" data-open="work"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-dir"/></svg></div>Work</button>
     <button class="icon" data-open="approach"><div class="g"><svg class="i"><use href="#s-log"/></svg></div>approach.log</button>
+    <button class="icon" data-open="fixit"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-fixit"/></svg></div>fixit.exe</button>
     <button class="icon" data-open="contact"><div class="g"><svg class="i"><use href="#s-mail"/></svg></div>Mail</button>
     <button class="icon" data-open="arcade" aria-label="arcade.exe" hidden><div class="g"><svg class="i" aria-hidden="true"><use href="#s-arcade"/></svg></div>arcade.exe</button>
   </nav>
@@ -321,11 +331,12 @@ body{overflow:auto}
       <div class="row">
         <button class="btn def" data-open="contact">Let’s connect</button>
         <button class="btn" data-open="expertise">Explore my expertise</button>
+        <button class="btn" data-open="work">View work</button>
       </div>
       <div class="meta"><span>Istanbul, Turkey</span><span><i></i>Open to new challenges</span></div>
       <div class="sys" aria-label="System status">
-        <div><b>IDENTITY</b><em>OK</em></div>
-        <div><b>ENDPOINTS</b><em>OK</em></div>
+        <button type="button" data-open="work" data-case="work-identity" aria-label="Identity: open sample case"><b>IDENTITY</b><em>OK ↗</em></button>
+        <button type="button" data-open="work" data-case="work-endpoints" aria-label="Endpoints: open sample case"><b>ENDPOINTS</b><em>OK ↗</em></button>
         <div><b>CLOUD</b><em>OK</em></div>
         <div><b>NETWORKS</b><em>OK</em></div>
       </div>
@@ -386,6 +397,7 @@ body{overflow:auto}
       <p class="l" data-n="2"><b>Investigate methodically.</b> Use clear tests, evidence, and repeatable steps to narrow down the cause.</p>
       <p class="l" data-n="3"><b>Communicate clearly.</b> Keep stakeholders informed and leave behind useful notes for the next person.</p>
       <p class="ps">ready</p>
+      <button class="btn" type="button" data-open="fixit">Try fixit.exe</button>
     </div>
     <div class="status"><span>3 steps</span><span>Exit 0</span></div>
   </section>
@@ -404,6 +416,79 @@ body{overflow:auto}
       <a class="btn def" href="mailto:ztrkkgn@kaganozturk.com?subject=Hello%20from%20kaganozturk.com">Send email</a>
     </div>
     <div class="status"><span>Have a project or opportunity?</span><span>Ready</span></div>
+  </section>
+
+  <section class="win" id="work" data-state="closed" data-x="220" data-y="46" data-w="620" data-icon="s-dir" aria-labelledby="t-work" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-dir"/></svg><span class="t" id="t-work">C:\Work</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body work-body">
+      <h2>Case files and projects</h2>
+
+      <div class="work-section">
+        <h3>Case files</h3>
+        <p>These sample tickets use fictional details to illustrate how I investigate common IT operations issues.</p>
+
+        <details class="work-case" id="work-endpoints">
+          <summary>
+            <span class="work-case-title">A ChromeOS policy is missing</span>
+            <span class="work-file-name">chromeos-policy.txt</span>
+          </summary>
+          <dl class="work-case-facts">
+            <dt>Impact</dt>
+            <dd>A newly enrolled batch of Chromebooks is missing a required work app. Previously enrolled devices work as expected.</dd>
+            <dt>Evidence</dt>
+            <dd>The affected devices share a staging organizational unit. A comparison with a working device shows that the staging unit lacks the required app policy.</dd>
+            <dt>Action</dt>
+            <dd>Confirm the intended device assignments, move one pilot device to the approved unit, and refresh its policies before moving the rest.</dd>
+            <dt>Verification</dt>
+            <dd>Check that the policy reaches the pilot and the app launches under a standard user account. Repeat those checks on the remaining devices.</dd>
+          </dl>
+        </details>
+
+        <details class="work-case" id="work-identity">
+          <summary>
+            <span class="work-case-title">Sign-in works but app access fails</span>
+            <span class="work-file-name">entra-app-access.txt</span>
+          </summary>
+          <dl class="work-case-facts">
+            <dt>Impact</dt>
+            <dd>A user can sign in to other tools but loses access to one Entra-managed app after a team change.</dd>
+            <dt>Evidence</dt>
+            <dd>The app requires an assignment through a specific access group. The user’s approved access request includes the app, but the current group membership is missing.</dd>
+            <dt>Action</dt>
+            <dd>Have the group owner apply the approved assignment and record the change in the ticket.</dd>
+            <dt>Verification</dt>
+            <dd>Ask the user to test in a fresh session and confirm that their in-app permissions match the approved role.</dd>
+          </dl>
+        </details>
+      </div>
+
+      <div class="work-section">
+        <h3>Projects</h3>
+        <article class="work-project">
+          <h4>KO/OS</h4>
+          <p>This portfolio is a browser-based retro desktop with movable windows, a Start menu, and three playable games.</p>
+          <div class="work-actions">
+            <a class="btn" href="https://github.com/ztrkkgn/kaganozturk-website" target="_blank" rel="noopener noreferrer">View source on GitHub</a>
+            <button class="btn" type="button" data-open="arcade">Open Arcade</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="work-actions">
+        <button class="btn" type="button" data-open="fixit">Try fixit.exe</button>
+      </div>
+    </div>
+    <div class="status"><span>2 sample cases</span><span>1 project</span></div>
+  </section>
+
+  <section class="win" id="fixit" data-state="closed" data-x="250" data-y="52" data-w="620" data-icon="s-fixit" aria-labelledby="t-fixit" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-fixit"/></svg><span class="t" id="t-fixit">fixit.exe</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body fixit-body">
+      <div class="fixit-app" data-fixit></div>
+    </div>
+    <div class="status"><span>IT support simulation</span><span>Training mode</span></div>
   </section>
 
   <section class="win" id="arcade" data-state="closed" data-x="144" data-y="16" data-w="514" data-icon="s-arcade" aria-labelledby="t-arcade" tabindex="-1">
@@ -450,7 +535,9 @@ body{overflow:auto}
     <li><button data-open="welcome"><svg class="g i"><use href="#s-pc"/></svg>kagan.exe</button></li>
     <li><button data-open="about"><svg class="g i"><use href="#s-doc"/></svg>about.txt</button></li>
     <li><button data-open="expertise"><svg class="g i"><use href="#s-dir"/></svg>Expertise</button></li>
+    <li><button data-open="work"><svg class="g i" aria-hidden="true"><use href="#s-dir"/></svg>Work</button></li>
     <li><button data-open="approach"><svg class="g i"><use href="#s-log"/></svg>approach.log</button></li>
+    <li><button data-open="fixit"><svg class="g i" aria-hidden="true"><use href="#s-fixit"/></svg>fixit.exe</button></li>
     <li><button data-open="contact"><svg class="g i"><use href="#s-mail"/></svg>Mail</button></li>
     <li hidden><button data-open="arcade"><svg class="g i" aria-hidden="true"><use href="#s-arcade"/></svg>Arcade</button></li>
     <li><hr></li>
@@ -499,14 +586,20 @@ your computer.
     if (w){ z++; w.style.zIndex = z; }
     renderTasks();
   }
-  function open(id){
+  function open(id, caseId){
     var w = $(id); if (!w) return;
     if (w.dataset.state === 'closed') w.dataset.placed = '';
     w.dataset.state = 'open';
     if (!small.matches) place(w);
     setActive(w);
     closeStart();
-    if (id === 'arcade' && !w.contains(document.activeElement)) w.focus({preventScroll:true});
+    var file = caseId && $(caseId);
+    if (file && w.contains(file)){
+      file.open = true;
+      file.querySelector('summary').focus();
+    } else if (w.tabIndex === -1 && w.hasAttribute('tabindex') && !w.contains(document.activeElement)){
+      w.focus({preventScroll:true});
+    }
   }
   function minimize(w){
     w.dataset.state = 'min';
@@ -543,7 +636,7 @@ your computer.
   /* ---- wiring ---- */
   document.addEventListener('click', function(e){
     var o = e.target.closest('[data-open]');
-    if (o){ open(o.dataset.open); return; }
+    if (o){ open(o.dataset.open, o.dataset.case); return; }
     if (!e.target.closest('#start') && !e.target.closest('#startbtn')) closeStart();
   });
   wins.forEach(function(w){
@@ -618,6 +711,18 @@ your computer.
   wins.forEach(function(w){ w.dataset.state = 'closed'; });
   open('welcome');
 
+  /* ---- shareable Work and Fixit links ---- */
+  function openLinkedWindow(){
+    switch (window.location.hash){
+      case '#work': open('work'); break;
+      case '#fixit': open('fixit'); break;
+      case '#work-endpoints':
+      case '#work-identity': open('work', window.location.hash.slice(1)); break;
+    }
+  }
+  openLinkedWindow();
+  window.addEventListener('hashchange', openLinkedWindow);
+
   /* ---- boot screen (once per session, skippable) ---- */
   var seen = false;
   try { seen = sessionStorage.getItem('ko-booted') === '1'; } catch(e){}
@@ -655,5 +760,9 @@ your computer.
 })();
 </script>
 <script type="module" src="./arcade/arcade.js"></script>
+<script type="module">
+  import { initFixit } from './workbench/fixit.js';
+  initFixit(document.querySelector('[data-fixit]'));
+</script>
 </body>
 </html>

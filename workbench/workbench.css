@@ -182,8 +182,11 @@
 
 @media (min-width: 761px) and (max-height: 740px) {
   #icons {
+    width: 116px;
     max-height: calc(100% - 24px);
+    grid-template-columns: minmax(0, 1fr);
     gap: 4px;
+    overflow-x: hidden;
     overflow-y: auto;
   }
 

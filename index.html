@@ -52,6 +52,8 @@ svg.i{width:100%;height:100%;display:block;shape-rendering:crispEdges}
     linear-gradient(45deg,var(--desk-dark) 25%,transparent 25%,transparent 75%,var(--desk-dark) 75%);
   background-size:4px 4px;background-position:0 0,2px 2px;
 }
+#desk[data-wallpaper="slate"]{--desk:#364462;--desk-dark:#2c3550}
+#desk[data-wallpaper="plum"]{--desk:#684a62;--desk-dark:#543950}
 #brand{
   position:absolute;right:20px;bottom:18px;text-align:right;color:#bfeeee;
   font-family:var(--px);font-size:11px;line-height:1.8;pointer-events:none;
@@ -189,10 +191,34 @@ h1,h2,h3{font-family:var(--px);font-weight:400;margin:0}
 .tbtn span{overflow:hidden;text-overflow:ellipsis}
 #tray{height:30px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:20px;box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi)}
 #tray i{width:10px;height:10px;background:#1fa34a;box-shadow:0 0 0 1px #0a0a0a}
+.desktop-tool{
+  flex:none;display:grid;place-items:center;min-width:32px;height:30px;padding:0 7px;
+  border:0;background:var(--face);
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px var(--hi),inset -2px -2px var(--lo),inset 2px 2px #dfdbd0;
+}
+.desktop-tool[aria-expanded="true"]{box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);background:#e0dbce}
+.desktop-tool .g{width:18px;height:18px}
+#desktopbtn .desktop-brief{display:none}
+#desktop-menu{
+  position:fixed;right:4px;bottom:40px;z-index:5001;width:min(230px,calc(100vw - 8px));
+  max-height:calc(100dvh - 44px);overflow:auto;padding:4px;background:var(--face);
+  box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px var(--hi),inset -2px -2px var(--lo),inset 2px 2px #dfdbd0,4px 4px 0 rgba(0,0,0,.35);
+}
+#desktop-menu button{
+  display:flex;align-items:center;gap:7px;width:100%;min-height:35px;
+  padding:4px 9px;border:0;background:none;text-align:left;line-height:1;
+}
+#desktop-menu button:hover,#desktop-menu button:focus-visible{background:var(--title-a);color:#fff;outline-offset:-2px}
+#desktop-menu button[aria-pressed="true"]::after{
+  content:"";width:10px;height:6px;margin-left:auto;border:solid currentColor;border-width:0 0 2px 2px;transform:rotate(-45deg)
+}
+#desktop-menu hr{margin:4px;border:0;border-top:1px solid var(--lo);border-bottom:1px solid var(--hi)}
+#desktop-menu .menu-label{margin:6px 9px 2px;font:9px/1.4 var(--px)}
+.wallpaper-swatch{flex:none;width:12px;height:12px;border:1px solid #151517;background:var(--sample)}
 
 /* start menu */
 #start{
-  position:fixed;left:4px;bottom:40px;z-index:5001;width:240px;display:flex;background:var(--face);padding:3px;
+  position:fixed;left:4px;bottom:40px;z-index:5001;width:240px;max-height:calc(100dvh - 44px);display:flex;background:var(--face);padding:3px;
   box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px var(--hi),inset -2px -2px var(--lo),inset 2px 2px #dfdbd0,4px 4px 0 rgba(0,0,0,.35);
 }
 #start[hidden]{display:none}
@@ -201,7 +227,7 @@ h1,h2,h3{font-family:var(--px);font-weight:400;margin:0}
 }
 #start .side span{position:absolute;left:50%;bottom:10px;transform:translateX(-50%) rotate(-90deg);transform-origin:left bottom;
   margin-left:-9px;font-family:var(--px);font-size:11px;color:#fff;white-space:nowrap}
-#start ul{list-style:none;margin:0;padding:2px;flex:1}
+#start ul{list-style:none;margin:0;padding:2px;flex:1;overflow:auto}
 #start li button{
   width:100%;display:flex;align-items:center;gap:10px;padding:6px 8px;background:none;border:0;text-align:left;font-size:22px;line-height:1;
 }
@@ -236,6 +262,24 @@ h1,h2,h3{font-family:var(--px);font-weight:400;margin:0}
   .mail{grid-template-columns:1fr}
   .mail label{text-align:left}
 }
+@media (pointer:coarse){
+  #desktop-menu button{min-height:44px}
+}
+@media (max-width:400px){
+  #bar{gap:4px}
+  #tray{padding:0 5px;gap:5px}
+}
+@media (max-width:380px){
+  #startbtn{padding-inline:6px}
+  #desktopbtn .desktop-full,#tray i{display:none}
+  #desktopbtn .desktop-brief{display:inline}
+  #tray{font-size:16px}
+}
+@media (min-width:761px) and (max-height:820px){
+  #icons{gap:3px}
+  #icons .icon{padding:4px 2px}
+  #icons .icon .g{width:32px;height:32px;margin-bottom:3px}
+}
 @media (prefers-reduced-motion:reduce){
   .ticker span{animation:none}
   .pad .cur,.term .ps::after{animation:none}
@@ -246,6 +290,9 @@ h1,h2,h3{font-family:var(--px);font-weight:400;margin:0}
 <link rel="stylesheet" href="./extras/desktop.css?v=1">
 <link rel="stylesheet" href="./extras/dialup.css?v=1">
 <link rel="stylesheet" href="./extras/iconmaker.css?v=1">
+<link rel="stylesheet" href="./extras/display-modes.css?v=1">
+<link rel="stylesheet" href="./extras/desktop-ink.css?v=1">
+<link rel="stylesheet" href="./extras/workspace-tools.css?v=1">
 <noscript><style>
 body{overflow:auto}
 #desk{height:auto;padding:12px 12px 52px;overflow:visible}
@@ -341,15 +388,17 @@ body{overflow:auto}
 
   <nav id="icons" aria-label="Desktop">
     <button class="icon" data-open="welcome"><div class="g"><svg class="i"><use href="#s-pc"/></svg></div>kagan.exe</button>
-    <button class="icon" data-open="about"><div class="g"><svg class="i"><use href="#s-doc"/></svg></div>about.txt</button>
-    <button class="icon" data-open="expertise"><div class="g"><svg class="i"><use href="#s-dir"/></svg></div>Expertise</button>
-    <button class="icon" data-open="work"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-dir"/></svg></div>Work</button>
-    <button class="icon" data-open="approach"><div class="g"><svg class="i"><use href="#s-log"/></svg></div>approach.log</button>
+    <button class="icon" data-open="about" data-send-file="about.txt"><div class="g"><svg class="i"><use href="#s-doc"/></svg></div>about.txt</button>
+    <button class="icon" data-open="expertise" data-send-folder="expertise"><div class="g"><svg class="i"><use href="#s-dir"/></svg></div>Expertise</button>
+    <button class="icon" data-open="work" data-send-folder="work"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-dir"/></svg></div>Work</button>
+    <button class="icon" type="button" data-custom-icon data-open="iconmaker" hidden><div class="g" aria-hidden="true"></div>My icon</button>
+    <button class="icon" data-open="approach" data-send-file="approach.log"><div class="g"><svg class="i"><use href="#s-log"/></svg></div>approach.log</button>
+    <button class="icon" type="button" data-open="printer" data-send-printer><div class="g"><svg class="i" aria-hidden="true"><use href="#s-printer"/></svg></div>print.exe</button>
+    <button class="icon" type="button" data-open="scratch" data-send-file="note.txt"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-doc"/></svg></div>notepad.exe</button>
     <button class="icon" data-open="fixit"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-fixit"/></svg></div>fixit.exe</button>
     <button class="icon" data-open="contact"><div class="g"><svg class="i"><use href="#s-mail"/></svg></div>Mail</button>
     <button class="icon" data-open="arcade" aria-label="arcade.exe" hidden><div class="g"><svg class="i" aria-hidden="true"><use href="#s-arcade"/></svg></div>arcade.exe</button>
     <button class="icon" type="button" data-open="recycle"><div class="g"><svg class="i" aria-hidden="true"><use href="#s-bin"/></svg></div>Recycle Bin</button>
-    <button class="icon" type="button" data-custom-icon data-open="iconmaker" hidden><div class="g" aria-hidden="true"></div>My icon</button>
   </nav>
 
   <div id="brand"><b>KO/OS</b>IT Operations Edition<br>kaganozturk.com</div>
@@ -578,12 +627,20 @@ body{overflow:auto}
     <div class="body"><div data-printer></div></div>
   </section>
 
+  <section class="win extra-win" id="scratch" data-state="closed" data-x="275" data-y="85" data-w="420" data-icon="s-doc" aria-labelledby="t-scratch" tabindex="-1">
+    <div class="titlebar"><svg class="g i" aria-hidden="true"><use href="#s-doc"/></svg><span class="t" id="t-scratch">notepad.exe</span>
+      <div class="tb"><button class="mn" aria-label="Minimize">_</button><button class="mx" aria-label="Maximize">□</button><button class="cl" aria-label="Close">X</button></div></div>
+    <div class="body" data-sticky-note></div>
+  </section>
+
 </main>
 
 <!-- taskbar -->
 <div id="bar">
   <button id="startbtn" aria-haspopup="true" aria-expanded="false" aria-controls="start"><svg class="g i"><use href="#s-ko"/></svg>Start</button>
   <div id="tasks" role="toolbar" aria-label="Open windows"></div>
+  <button id="monitorbtn" class="desktop-tool" type="button" data-desktop-action="monitor" aria-label="Monitor" title="Monitor"><span class="g"><svg class="i" aria-hidden="true"><use href="#s-pc"/></svg></span></button>
+  <button id="desktopbtn" class="desktop-tool" type="button" aria-label="Desktop" aria-expanded="false" aria-controls="desktop-menu"><span class="desktop-full">Desktop</span><span class="desktop-brief">Desk</span></button>
   <div data-cat hidden></div>
   <div id="tray"><i title="Online"></i><span class="tm" id="clock">--:--</span></div>
 </div>
@@ -605,9 +662,23 @@ body{overflow:auto}
     <li><button type="button" data-open="dialup"><svg class="g i" aria-hidden="true"><use href="#s-dialup"/></svg>dialup.exe</button></li>
     <li><button type="button" data-open="iconmaker"><svg class="g i" aria-hidden="true"><use href="#s-iconmaker"/></svg>iconmaker.exe</button></li>
     <li><button type="button" data-open="printer"><svg class="g i" aria-hidden="true"><use href="#s-printer"/></svg>print.exe</button></li>
+    <li><button type="button" data-open="scratch"><svg class="g i" aria-hidden="true"><use href="#s-doc"/></svg>notepad.exe</button></li>
     <li><hr></li>
     <li><button id="shutbtn"><svg class="g i"><use href="#s-off"/></svg>Shut down…</button></li>
   </ul>
+</div>
+
+<div id="desktop-menu" aria-label="Desktop tools" hidden>
+  <button type="button" data-desktop-action="xray" aria-pressed="false">X-Ray view</button>
+  <button type="button" data-desktop-action="ink" aria-pressed="false">Draw on desktop</button>
+  <button type="button" data-desktop-action="share">Save desktop…</button>
+  <hr>
+  <div class="menu-label" id="wallpaper-label">Wallpaper</div>
+  <div role="group" aria-labelledby="wallpaper-label">
+    <button type="button" data-wallpaper-choice="teal" aria-pressed="true"><span class="wallpaper-swatch" style="--sample:#0e6f6f" aria-hidden="true"></span>Original teal</button>
+    <button type="button" data-wallpaper-choice="slate" aria-pressed="false"><span class="wallpaper-swatch" style="--sample:#364462" aria-hidden="true"></span>Slate blue</button>
+    <button type="button" data-wallpaper-choice="plum" aria-pressed="false"><span class="wallpaper-swatch" style="--sample:#684a62" aria-hidden="true"></span>Dusty plum</button>
+  </div>
 </div>
 
 <div id="screensaver" hidden></div>
@@ -616,13 +687,26 @@ your computer.
 
 (click anywhere to restart)</pre></div></div>
 
-<script>
+<script type="module">
+import { initDesktopExtras } from './extras/desktop.js?v=1';
+import { initDialup } from './extras/dialup.js?v=1';
+import { initIconMaker } from './extras/iconmaker.js?v=2';
+import { initPrinter } from './extras/printer.js?v=2';
+import { initDisplayModes } from './extras/display-modes.js?v=1';
+import { initDesktopInk } from './extras/desktop-ink.js?v=1';
+import { initDesktopShare } from './extras/desktop-share.js?v=1';
+import { initFileActions } from './extras/file-actions.js?v=1';
+import { initStickyNote } from './extras/sticky-note.js?v=1';
+
 (function(){
   var desk = document.getElementById('desk');
   var wins = [].slice.call(document.querySelectorAll('.win'));
   var tasks = document.getElementById('tasks');
   var startMenu = document.getElementById('start');
   var startBtn = document.getElementById('startbtn');
+  var desktopMenu = document.getElementById('desktop-menu');
+  var desktopBtn = document.getElementById('desktopbtn');
+  var wallpaperChoices = Array.from(desktopMenu.querySelectorAll('[data-wallpaper-choice]'));
   var z = 10, active = null;
   var small = window.matchMedia('(max-width:760px)');
 
@@ -659,6 +743,7 @@ your computer.
     if (!small.matches) place(w);
     setActive(w);
     closeStart();
+    closeDesktopMenu();
     var file = caseId && $(caseId);
     if (file && w.contains(file)){
       file.open = true;
@@ -683,10 +768,12 @@ your computer.
     renderTasks();
   }
   function renderTasks(){
+    var focusedWindow = tasks.contains(document.activeElement) && document.activeElement.dataset.window;
     tasks.innerHTML = '';
     wins.filter(function(w){ return w.dataset.state !== 'closed'; }).forEach(function(w){
       var b = document.createElement('button');
       b.className = 'tbtn' + (w === active && w.dataset.state === 'open' ? ' on' : '');
+      b.dataset.window = w.id;
       b.setAttribute('aria-label', title(w));
       b.innerHTML = '<svg class="g i"><use href="#' + w.dataset.icon + '"/></svg><span></span>';
       b.querySelector('span').textContent = title(w);
@@ -701,6 +788,10 @@ your computer.
     if (selected && tasks.scrollWidth > tasks.clientWidth){
       selected.scrollIntoView({block:'nearest', inline:'nearest'});
     }
+    if (focusedWindow) {
+      var nextFocus = Array.from(tasks.children).find(function(button){ return button.dataset.window === focusedWindow; });
+      (nextFocus || startBtn).focus({preventScroll:true});
+    }
   }
 
   /* ---- wiring ---- */
@@ -708,6 +799,7 @@ your computer.
     var o = e.target.closest('[data-open]');
     if (o){ open(o.dataset.open, o.dataset.case); return; }
     if (!e.target.closest('#start') && !e.target.closest('#startbtn')) closeStart();
+    if (!e.target.closest('#desktop-menu, #desktopbtn')) closeDesktopMenu();
   });
   wins.forEach(function(w){
     w.addEventListener('pointerdown', function(){ if (active !== w) setActive(w); });
@@ -721,7 +813,7 @@ your computer.
     /* drag */
     var tb = w.querySelector('.titlebar'), sx, sy, ox, oy, drag = false;
     tb.addEventListener('pointerdown', function(e){
-      if (small.matches || w.classList.contains('max') || e.target.closest('button')) return;
+      if (e.button !== 0 || small.matches || w.classList.contains('max') || e.target.closest('button')) return;
       drag = true; sx = e.clientX; sy = e.clientY; ox = w.offsetLeft; oy = w.offsetTop;
       tb.setPointerCapture(e.pointerId);
     });
@@ -742,13 +834,42 @@ your computer.
   function closeStart(){ startMenu.hidden = true; startBtn.setAttribute('aria-expanded','false'); }
   startBtn.onclick = function(e){
     e.stopPropagation();
+    closeDesktopMenu();
     var show = startMenu.hidden;
     startMenu.hidden = !show;
     startBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
     if (show) startMenu.querySelector('button').focus();
   };
+  function closeDesktopMenu(returnFocus){
+    if (desktopMenu.hidden) return;
+    desktopMenu.hidden = true;
+    desktopBtn.setAttribute('aria-expanded','false');
+    if (returnFocus) desktopBtn.focus({preventScroll:true});
+  }
+  desktopBtn.onclick = function(){
+    closeStart();
+    if (!desktopMenu.hidden){ closeDesktopMenu(true); return; }
+    desktopMenu.hidden = false;
+    desktopBtn.setAttribute('aria-expanded','true');
+    desktopMenu.querySelector('button').focus();
+  };
+  function setWallpaper(name){
+    desk.dataset.wallpaper = name;
+    wallpaperChoices.forEach(function(button){
+      button.setAttribute('aria-pressed', String(button.dataset.wallpaperChoice === name));
+    });
+  }
+  desktopMenu.addEventListener('click', function(e){
+    var option = e.target.closest('button');
+    if (!option) return;
+    if (option.dataset.wallpaperChoice) setWallpaper(option.dataset.wallpaperChoice);
+    closeDesktopMenu(true);
+  });
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeStart();
+    if (e.key === 'Escape'){
+      closeStart();
+      closeDesktopMenu(true);
+    }
   });
   var off = $('off');
   $('shutbtn').onclick = function(){ closeStart(); off.hidden = false; };
@@ -766,16 +887,81 @@ your computer.
   tick(); setInterval(tick, 15000);
 
   /* ---- keep windows inside the desktop on resize ---- */
+  function fitPlacedWindow(w){
+    var width = Math.min(parseFloat(w.style.width), desk.clientWidth - 16);
+    var left = Math.max(80 - width, Math.min(parseFloat(w.style.left), desk.clientWidth - 80));
+    var top = Math.max(0, Math.min(parseFloat(w.style.top), desk.clientHeight - 30));
+    w.style.width = width + 'px';
+    w.style.left = left + 'px';
+    w.style.top = top + 'px';
+    w.style.maxHeight = (desk.clientHeight - top - 6) + 'px';
+  }
   window.addEventListener('resize', function(){
+    if (small.matches) return;
     wins.forEach(function(w){
-      if (!w.dataset.placed || small.matches) return;
-      var maxW = desk.clientWidth - 16;
-      if (w.offsetWidth > maxW) w.style.width = maxW + 'px';
-      w.style.left = Math.max(0, Math.min(w.offsetLeft, desk.clientWidth - w.offsetWidth - 8)) + 'px';
-      w.style.top = Math.max(0, Math.min(w.offsetTop, desk.clientHeight - 60)) + 'px';
-      w.style.maxHeight = (desk.clientHeight - w.offsetTop - 6) + 'px';
+      if (w.dataset.placed) fitPlacedWindow(w);
+      else if (w.dataset.state !== 'closed') place(w);
     });
   });
+
+  function captureDesktopLayout(){
+    return {
+      wallpaper: desk.dataset.wallpaper || 'teal',
+      active: active ? active.id : null,
+      windows: wins.filter(function(w){ return w.dataset.state !== 'closed'; })
+        .sort(function(a,b){ return (+a.style.zIndex||0) - (+b.style.zIndex||0); })
+        .map(function(w){
+          return [
+            w.id,
+            w.dataset.state,
+            Math.round(parseFloat(w.style.left || w.dataset.x)),
+            Math.round(parseFloat(w.style.top || w.dataset.y)),
+            Math.round(parseFloat(w.style.width || w.dataset.w)),
+            Number(w.classList.contains('max'))
+          ];
+        })
+    };
+  }
+
+  function restoreDesktopLayout(layout){
+    if (!layout || !Array.isArray(layout.windows) || layout.windows.length > wins.length
+      || !wallpaperChoices.some(function(button){ return button.dataset.wallpaperChoice === layout.wallpaper; })) return false;
+    var ids = new Set();
+    for (var row of layout.windows){
+      if (!Array.isArray(row) || row.length !== 6) return false;
+      var [id, state, x, y, width, max] = row;
+      if (ids.has(id) || !wins.some(function(w){ return w.id === id; }) || (state !== 'open' && state !== 'min')
+        || !Number.isInteger(x) || Math.abs(x) > 20000 || !Number.isInteger(y) || y < 0 || y > 20000
+        || !Number.isInteger(width) || width < 120 || width > 20000 || (max !== 0 && max !== 1)) return false;
+      ids.add(id);
+    }
+    var openWindows = layout.windows.filter(function(row){ return row[1] === 'open'; });
+    if (openWindows.length ? !openWindows.some(function(row){ return row[0] === layout.active; }) : layout.active !== null) return false;
+
+    var previousFocus = document.activeElement;
+    setWallpaper(layout.wallpaper);
+    wins.forEach(function(w){
+      w.dataset.state = 'closed';
+      w.dataset.placed = '';
+      w.classList.remove('max');
+      w.style.zIndex = '';
+    });
+    z = 10;
+    for (var [id, state, x, y, width, max] of layout.windows){
+      var w = $(id);
+      w.dataset.state = state;
+      w.dataset.placed = '1';
+      w.style.left = x + 'px';
+      w.style.top = y + 'px';
+      w.style.width = width + 'px';
+      w.style.zIndex = ++z;
+      w.classList.toggle('max', max === 1);
+      if (!small.matches) fitPlacedWindow(w);
+    }
+    setActive(layout.active ? $(layout.active) : null);
+    if (previousFocus.closest('.win[data-state="closed"], .win[data-state="min"]')) desktopBtn.focus({preventScroll:true});
+    return true;
+  }
 
   /* ---- initial state: only the welcome window is open ---- */
   wins.forEach(function(w){ w.dataset.state = 'closed'; });
@@ -791,17 +977,36 @@ your computer.
       case '#recycle':
       case '#dialup':
       case '#iconmaker':
-      case '#printer': open(window.location.hash.slice(1)); break;
+      case '#printer':
+      case '#scratch': open(window.location.hash.slice(1)); break;
     }
   }
   openLinkedWindow();
   window.addEventListener('hashchange', openLinkedWindow);
 
+  initDesktopExtras();
+  initDialup(document.querySelector('[data-dialup]'));
+  initIconMaker(document.querySelector('[data-iconmaker]'), document.querySelector('[data-custom-icon]'));
+  var printer = initPrinter(document.querySelector('[data-printer]'));
+  var note = initStickyNote({desk, root:$('scratch')});
+  initFileActions({desk, openWindow:open, printText:printer.printText, getNoteText:note.getText});
+  var ink = initDesktopInk({desk});
+  initDisplayModes({desk, bar:$('bar')});
+  initDesktopShare({
+    getState:function(){ return {...captureDesktopLayout(), ink:ink.getState()}; },
+    restoreState:function(layout){
+      if (!restoreDesktopLayout(layout)) return false;
+      ink.setActive(false);
+      if (!ink.restoreState(layout.ink)) ink.restoreState('');
+      return true;
+    }
+  });
+
   /* ---- boot screen (once per session, skippable) ---- */
   var seen = false;
   try { seen = sessionStorage.getItem('ko-booted') === '1'; } catch(e){}
   var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if (!seen && !reduce){
+  if (!seen && !reduce && !window.location.hash.startsWith('#desktop=')){
     var lines = [
       'KO-BIOS v1.0   (c) 2026 kaganozturk.com',
       '',
@@ -837,17 +1042,6 @@ your computer.
 <script type="module">
   import { initFixit } from './workbench/fixit.js?v=2';
   initFixit(document.querySelector('[data-fixit]'));
-</script>
-<script type="module">
-  import { initDesktopExtras } from './extras/desktop.js?v=1';
-  import { initDialup } from './extras/dialup.js?v=1';
-  import { initIconMaker } from './extras/iconmaker.js?v=2';
-  import { initPrinter } from './extras/printer.js?v=1';
-
-  initDesktopExtras();
-  initDialup(document.querySelector('[data-dialup]'));
-  initIconMaker(document.querySelector('[data-iconmaker]'), document.querySelector('[data-custom-icon]'));
-  initPrinter(document.querySelector('[data-printer]'));
 </script>
 </body>
 </html>

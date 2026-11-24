@@ -1,0 +1,334 @@
+/* The live desktop stays behind the glass and retains its window positions. */
+body.ko-monitor-open {
+  background:
+    linear-gradient(90deg, #14171f 1px, transparent 1px) 0 0 / 14px 14px,
+    linear-gradient(#14171f 1px, transparent 1px) 0 0 / 14px 14px,
+    linear-gradient(#252b38 71%, #493a38 71%, #302728);
+}
+
+body.ko-monitor-open::before {
+  content: "";
+  position: fixed;
+  left: var(--ko-crt-screen-x);
+  top: var(--ko-crt-screen-y);
+  width: var(--ko-crt-screen-width);
+  height: var(--ko-crt-screen-height);
+  background: #111a1a;
+}
+
+.ko-monitor-open #desk,
+.ko-monitor-open #bar {
+  position: fixed;
+  inset: 0 auto auto 0;
+  width: 100%;
+  transform-origin: top left;
+}
+
+.ko-monitor-open #desk {
+  transform: translate(var(--ko-crt-preview-x), var(--ko-crt-preview-y)) scale(var(--ko-crt-scale));
+  animation: ko-crt-desktop-in 340ms cubic-bezier(.16, .84, .31, 1);
+}
+
+.ko-monitor-open #bar {
+  transform: translate(var(--ko-crt-preview-x), var(--ko-crt-preview-bar-y)) scale(var(--ko-crt-scale));
+  animation: ko-crt-bar-in 340ms cubic-bezier(.16, .84, .31, 1);
+}
+
+@keyframes ko-crt-desktop-in {
+  from { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes ko-crt-bar-in {
+  from { transform: translateY(var(--ko-crt-initial-bar-y)) scale(1); }
+}
+
+@media screen {
+  .ko-phosphor-amber #desk,
+  .ko-phosphor-amber #bar,
+  .ko-phosphor-amber #start,
+  .ko-phosphor-amber #desktop-menu {
+    filter: grayscale(1) sepia(1) saturate(2.7) hue-rotate(354deg);
+  }
+}
+
+.ko-crt-scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  overflow-y: auto;
+}
+
+.ko-crt-scene[open] {
+  display: grid;
+  place-items: safe center;
+}
+
+.ko-crt-scene::backdrop {
+  background: transparent;
+}
+
+.ko-crt {
+  --crt-frame: #c3b499;
+  --crt-highlight: #fbefd5;
+  --crt-shadow: #706252;
+  position: relative;
+  width: min(728px, calc(100vw - 34px), calc((100dvh - 103px) * 1.23));
+  min-width: min(286px, calc(100vw - 34px));
+  color: #292724;
+  animation: ko-crt-fade-in 230ms 85ms both;
+}
+
+@keyframes ko-crt-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ko-crt-case {
+  position: relative;
+  z-index: 1;
+  border: 3px solid #201a1e;
+  box-shadow: 4px 0 #201a1e, -4px 0 #201a1e, 0 4px #201a1e, 0 -4px #201a1e,
+    9px 7px #1a171f;
+}
+
+.ko-crt-top,
+.ko-crt-controls {
+  background-color: var(--crt-frame);
+  box-shadow: inset 3px 3px var(--crt-highlight), inset -3px -3px var(--crt-shadow);
+}
+
+.ko-crt-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px clamp(10px, 2.3vw, 24px);
+  border-bottom: 2px solid #98876c;
+}
+
+.ko-crt-sticker {
+  display: block;
+  border: 1px solid #272728;
+  padding: 4px 6px 3px;
+  background: #296666;
+  box-shadow: 2px 2px #7a6e5d;
+  color: #ffffed;
+  font: 9px/1.2 var(--px);
+}
+
+.ko-crt-vents {
+  width: min(32%, 88px);
+  height: 11px;
+  border-bottom: 2px solid #f2e3c7;
+  background: repeating-linear-gradient(90deg, #766752 0 2px, transparent 2px 6px);
+}
+
+.ko-crt-rim {
+  border-style: solid;
+  border-width: clamp(8px, 2vw, 22px);
+  border-color: #877665 #bcaa8e #f2dfbd #af9c80;
+}
+
+.ko-crt-glass {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: inset 0 0 0 2px #212522, inset 0 0 16px 4px #0008;
+  cursor: zoom-in;
+}
+
+.ko-crt-glass::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, #12151836 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at 20% 0, #e8eeff19, transparent 45%);
+}
+
+.ko-crt-glass:focus-visible {
+  outline: 2px dotted #fff4c7;
+  outline-offset: -6px;
+}
+
+.ko-crt-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px clamp(8px, 2.3vw, 24px) 9px;
+}
+
+.ko-crt-colors {
+  display: flex;
+  gap: 4px;
+}
+
+.ko-crt-controls button {
+  min-height: 36px;
+  padding: 2px 8px;
+  border: 0;
+  background: #cfc2a7;
+  box-shadow: inset 2px 2px var(--crt-highlight), inset -2px -2px var(--crt-shadow),
+    1px 1px #211a1e;
+  font-size: clamp(16px, 3vw, 22px);
+  line-height: 1;
+}
+
+.ko-crt-controls button:hover {
+  background: #e2d1ae;
+}
+
+.ko-crt-controls button[aria-pressed="true"],
+.ko-crt-controls button:active {
+  background: #b4a48a;
+  box-shadow: inset 2px 2px #706252, inset -2px -2px var(--crt-highlight),
+    1px 1px #211a1e;
+}
+
+.ko-crt-return i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 2px;
+  background: #2e9f53;
+  box-shadow: 0 0 0 1px #24251e, 0 0 4px #357644;
+}
+
+.ko-phosphor-amber .ko-crt-return i {
+  background: #ecab41;
+  box-shadow: 0 0 0 1px #4c341d, 0 0 4px #bd6916;
+}
+
+.ko-crt-foot {
+  width: 45%;
+  height: clamp(18px, 4dvh, 35px);
+  margin: 0 auto;
+  background: linear-gradient(0deg, #95836d 0 22%, #f2dfbd 22% 39%, #b5a286 39%);
+  clip-path: polygon(12% 0, 88% 0, 88% 45%, 93% 45%, 93% 66%, 100% 66%, 100% 100%,
+    0 100%, 0 66%, 7% 66%, 7% 45%, 12% 45%);
+}
+
+.ko-crt-diskette {
+  position: absolute;
+  z-index: 2;
+  right: -3px;
+  top: -12px;
+  width: clamp(32px, 7.8vw, 78px);
+  aspect-ratio: 1 / 1;
+  border: 2px solid #1a1821;
+  background: #4a4560;
+  box-shadow: inset -3px -3px #312c42, inset 2px 2px #69627a, 3px 3px #1a1821;
+  transform: rotate(10deg);
+  pointer-events: none;
+}
+
+.ko-crt-diskette::before {
+  content: "";
+  position: absolute;
+  inset: 0 18% 57% 28%;
+  background: linear-gradient(90deg, #988b88 59%, #29242f 59% 76%, #b9a8a0 76%);
+}
+
+.ko-crt-diskette::after {
+  content: "";
+  position: absolute;
+  inset: 49% 14% 13%;
+  background: repeating-linear-gradient(0deg, #eee0b9 0 4px, #b1977c 4px 5px);
+}
+
+.ko-crt-diskette span {
+  position: absolute;
+  z-index: 1;
+  width: 120%;
+  height: 22%;
+  top: 43%;
+  left: -11%;
+  transform: rotate(-33deg);
+  background: #e7cb8dc2;
+  box-shadow: 0 1px #b1976966;
+}
+
+@media (max-width: 550px) and (orientation: portrait) {
+  .ko-crt-glass { aspect-ratio: 3 / 4; }
+}
+
+@media (pointer: coarse) {
+  .ko-crt-controls button { min-height: 44px; }
+}
+
+/* Blueprint colors apply to the real windows, so their contours follow drag and resize. */
+@media screen {
+  #desk.ko-xray {
+    background-color: #11294c;
+    background-image:
+      linear-gradient(#84c9e230 1px, transparent 1px),
+      linear-gradient(90deg, #84c9e230 1px, transparent 1px),
+      linear-gradient(#84c9e21a 1px, transparent 1px),
+      linear-gradient(90deg, #84c9e21a 1px, transparent 1px);
+    background-size: 48px 48px, 48px 48px, 12px 12px, 12px 12px;
+    background-position: 0 0;
+  }
+
+  #desk.ko-xray .win {
+    background: #5caace1e;
+    box-shadow: inset 0 0 0 1px #84cce3, 0 0 0 1px #153349;
+  }
+
+  #desk.ko-xray .win.active {
+    box-shadow: inset 0 0 0 2px #bfeafa, 0 0 0 1px #153349;
+  }
+
+  #desk.ko-xray .titlebar {
+    background: #1b4669aa;
+  }
+
+  #desk.ko-xray .win.active .titlebar {
+    background: #285884ef;
+  }
+
+  #desk.ko-xray .body {
+    background: #d7ebf0cc;
+    box-shadow: inset 0 0 0 1px #92c2d5;
+  }
+
+  #desk.ko-xray .term {
+    background: #122b49df;
+  }
+
+  #desk.ko-xray .term .l::before {
+    color: #aed9e7;
+  }
+
+  #desk.ko-xray .win:not(.active):not(:focus-within):not(:hover) .body {
+    opacity: .14;
+  }
+
+  #desk.ko-xray .status {
+    color: #eff9ff;
+  }
+
+  #desk.ko-xray .status span {
+    box-shadow: inset 0 0 0 1px #6eacc6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ko-crt,
+  .ko-monitor-open #desk,
+  .ko-monitor-open #bar {
+    animation: none;
+  }
+}

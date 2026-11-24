@@ -1,0 +1,116 @@
+.desktop-ink-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 4000;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.desktop-ink-canvas.is-drawing {
+  pointer-events: auto;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.desktop-ink-tools {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 4001;
+  max-width: calc(100% - 16px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 6px;
+  background: var(--face);
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px var(--hi), 3px 3px rgba(0, 0, 0, .35);
+}
+
+.desktop-ink-tools[hidden] { display: none; }
+
+.desktop-ink-label {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  background: var(--title-a);
+  color: #fff;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.desktop-ink-swatches,
+.desktop-ink-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.desktop-ink-swatches button {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: 1px solid var(--lo);
+  background: var(--paper);
+}
+
+.desktop-ink-swatches button::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--pen-ink);
+}
+
+.desktop-ink-swatches button[aria-pressed="true"] {
+  border: 2px solid #151517;
+  padding: 3px;
+}
+
+.desktop-ink-actions .btn { padding: 6px 9px; font-size: 20px; }
+.desktop-ink-actions .btn:disabled { color: var(--lo); cursor: default; }
+.desktop-ink-message {
+  flex: 0 0 100%;
+  min-height: 1em;
+  margin: 0;
+  padding: 1px 4px;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.desktop-share-dialog {
+  width: min(480px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  padding: 3px;
+  border: 0;
+  background: var(--face);
+  color: var(--ink);
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px var(--hi), 5px 5px rgba(0, 0, 0, .45);
+}
+
+.desktop-share-dialog::backdrop { background: rgba(0, 0, 0, .44); }
+.desktop-share-dialog .titlebar { padding: 7px 8px; }
+.desktop-share-body { padding: 12px; }
+.desktop-share-body label { display: block; }
+.desktop-share-body input {
+  display: block;
+  width: 100%;
+  min-height: 32px;
+  padding: 2px 6px;
+  border: 1px solid var(--lo);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+.desktop-share-body p { margin: 7px 0 0; font-size: 18px; }
+.desktop-share-body [role="status"]:empty { display: none; }
+.desktop-share-actions { display: flex; gap: 8px; margin-top: 12px; }
+.desktop-share-actions form { margin: 0; }
+.desktop-share-actions .btn:disabled { color: var(--lo); cursor: default; }
+
+@media (pointer: coarse) {
+  .desktop-ink-swatches button { width: 40px; height: 40px; }
+  .desktop-ink-actions .btn,
+  .desktop-share-actions .btn { min-height: 40px; }
+}

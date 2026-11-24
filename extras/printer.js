@@ -11,7 +11,7 @@ export function initPrinter(root) {
   heading.textContent = 'KO/OS Dot Matrix';
 
   const hint = doc.createElement('p');
-  hint.textContent = 'Print a score from Arcade or resolve a ticket in Fixit to load a receipt.';
+  hint.textContent = 'Drop a text file on print.exe or use Send to… from an open text file. Arcade and Fixit can also load a receipt.';
 
   const print = doc.createElement('button');
   print.className = 'btn';
@@ -71,9 +71,25 @@ export function initPrinter(root) {
     const footer = doc.createElement('p');
     footer.textContent = note;
 
-    paper.replaceChildren(label, details, footer);
+    revealPaper('Print receipt', label, details, footer);
+  }
+
+  function revealPaper(printLabel, ...contents) {
+    paper.replaceChildren(...contents);
     paper.hidden = false;
     hint.hidden = true;
+    print.textContent = printLabel;
     print.hidden = false;
   }
+
+  function printText(name, text) {
+    const title = doc.createElement('h3');
+    title.textContent = name;
+    const documentText = doc.createElement('pre');
+    documentText.className = 'printer-text-document';
+    documentText.textContent = text;
+    revealPaper('Print document', title, documentText);
+  }
+
+  return { printText };
 }

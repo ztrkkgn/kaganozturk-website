@@ -1,0 +1,245 @@
+.workspace-file-send {
+  margin-top: 8px;
+}
+
+.iconmaker-actions .workspace-file-send {
+  margin-top: 0;
+}
+
+.workspace-send-menu {
+  position: fixed;
+  z-index: 6200;
+  min-width: 180px;
+  max-width: calc(100vw - 8px);
+  padding: 3px;
+  background: var(--face);
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px var(--hi), 3px 3px rgba(0, 0, 0, .35);
+}
+
+.workspace-send-menu[hidden] {
+  display: none;
+}
+
+.workspace-send-menu button {
+  display: block;
+  width: 100%;
+  min-height: 33px;
+  padding: 4px 12px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.workspace-send-menu button:hover,
+.workspace-send-menu button:focus-visible {
+  background: var(--title-a);
+  color: var(--hi);
+  outline: 0;
+}
+
+.workspace-file-status {
+  position: fixed;
+  z-index: 6201;
+  right: 8px;
+  bottom: 46px;
+  max-width: min(340px, calc(100vw - 16px));
+  margin: 0;
+  padding: 5px 10px;
+  background: #fff5c7;
+  border: 1px solid #211801;
+  color: #211801;
+  box-shadow: 3px 3px rgba(0, 0, 0, .35);
+  pointer-events: none;
+}
+
+.workspace-file-status:empty {
+  opacity: 0;
+}
+
+#desk .workspace-drop-target {
+  border: 1px dotted #fff;
+  background: var(--title-a);
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+}
+
+#desk [data-send-file],
+#desk [data-custom-icon] {
+  user-select: none;
+}
+
+#desk [data-send-file] .g,
+#desk [data-custom-icon] .g {
+  touch-action: none;
+  -webkit-touch-callout: none;
+}
+
+.workspace-drag-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6202;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 170px;
+  padding: 4px 7px;
+  border: 1px dotted #fff;
+  background: var(--title-a);
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.1;
+  box-shadow: 2px 2px rgba(0, 0, 0, .4);
+  pointer-events: none;
+}
+
+.workspace-drag-ghost[hidden] {
+  display: none;
+}
+
+.workspace-drag-ghost .g {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.workspace-drag-ghost .g img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.workspace-folder-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.printer-paper h3 {
+  overflow-wrap: anywhere;
+}
+
+.printer-text-document {
+  margin: 0;
+  padding-block: 8px;
+  border-block: 1px dashed #99917f;
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  animation: workspace-paper-feed 200ms ease-out both;
+}
+
+@keyframes workspace-paper-feed {
+  from { opacity: .3; transform: translateY(-4px); }
+}
+
+#scratch .body {
+  padding: 12px;
+}
+
+#scratch [hidden] {
+  display: none;
+}
+
+.sticky-editor {
+  display: block;
+  width: 100%;
+  min-height: 145px;
+  resize: none;
+  padding: 6px 8px;
+  border: 1px solid var(--lo);
+  font: 20px/1.2 var(--mono);
+  color: var(--ink);
+  background: #fff;
+}
+
+.sticky-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 9px;
+  padding-right: 14px;
+}
+
+#scratch[data-sticky-compact] {
+  background: #f8d96a;
+  color: #2c2408;
+}
+
+#scratch[data-sticky-compact] .titlebar {
+  background: #f5ce57;
+  color: #241c05;
+}
+
+#scratch[data-sticky-compact] .body {
+  background: #ffef98;
+}
+
+#scratch .sticky-preview {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+#scratch .sticky-preview[hidden] {
+  display: none;
+}
+
+#scratch[data-sticky-compact] .sticky-actions .btn {
+  padding: 5px 8px;
+  color: #241c05;
+  background: #f5d86d;
+}
+
+.sticky-grip {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background:
+    linear-gradient(135deg, transparent 60%, var(--lo) 60% 68%, transparent 68% 75%, var(--lo) 75% 83%, transparent 83% 90%, var(--lo) 90%);
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+#scratch.max .sticky-grip {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .workspace-send-menu button {
+    min-height: 44px;
+  }
+
+  .sticky-actions .btn {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 760px) {
+  #scratch[data-sticky-compact] {
+    inset: 12px 12px auto auto !important;
+    width: min(240px, calc(100% - 24px)) !important;
+    height: auto !important;
+    max-height: calc(100% - 24px) !important;
+    box-shadow: 3px 3px rgba(0, 0, 0, .35);
+  }
+
+  .sticky-grip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), print {
+  .printer-text-document {
+    animation: none;
+  }
+}
